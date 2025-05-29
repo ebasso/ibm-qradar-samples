@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 700px;
+      margin: 20px auto;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .header, .footer {
+      background:rgb(20, 8, 88);
+      color: #fff;
+      padding: 20px;
+    }
+    .footer {
+      background: #e6e6e6;
+      color: #333;
+      font-size: 12px;
+    }
+    .content {
+      padding: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      color:rgb(20, 8, 88);
+      border-bottom: 1px solid #ccc;
+      margin: 20px 0 10px;
+    }
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .info-table td {
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    .label {
+      font-weight: bold;
+      color: rgb(20, 8, 88);
+      background: #e6e6e6;
+      width: 160px;
+    }
+    a {
+      color: rgb(20, 8, 88);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  {% macro get_row(label, field_name) -%}
+    {% set value = template_helper.get_incident_value(incident,field_name) -%}
+    {% if value and value not in NOT_FOUND and not value.startswith('-') -%}
+      <tr><td class="label">{{ label }}:</td><td>{{ value | striptags }}</td></tr>
+    {% endif -%}
+  {% endmacro -%}
+
+  <div class="container">
+    <div class="header">
+      <h2>Incident Notifications</h2>
+    </div>
+    <div class="content">
+      <p>Alert from IBM QRadar SOAR.</p>
+
+      <div class="section-title">{{ incident.id }} - {{ incident.name }}</div>
+      <table class="info-table">
+        <tr><td class="label">Incident ID:</td><td>{{ incident.id }}</td></tr>
+        {{ get_row('Date/Hour','create_date') }}
+        {{ get_row('Category','incident_type_ids') }}
+        {{ get_row('Severity','severity_code') }}
+      </table>
+
+      <div class="section-title">Description</div>
+      <p>{{ incident.description }}</p>
+
+      <div class="section-title">More information</div>
+      <p>For details access Soar:</p>
+      {% set inc_url = template_helper.generate_incident_url(incident.id) -%}
+      <p><a href="{{ inc_url }}" target="_blank">Click here/a></p>
+    </div>
+    <div class="footer">
+      <p>Any Doubt consulte SOC TEAM.</p>
+      <p style="text-align: right;">
+        Regards,<br>
+        <strong>Security Operations Center</strong>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
