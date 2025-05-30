@@ -22,4 +22,4 @@ if playbook.inputs.get('mail_in_reply_to') and incident.properties.email_message
 if playbook.inputs.get('mail_body') and playbook.inputs.get('mail_body').content:
   inputs.mail_body = playbook.inputs.mail_body.content
 
-inputs.mail_template_label = 'geral_notificacao_v250529'
+inputs.mail_template_label = 'sample_email'
