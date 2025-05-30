@@ -13,4 +13,4 @@ More details here https://ibmresilient.github.io/resilient-community-apps/fn_out
 
 In your playbook, add or edit the Outbound Email: Send Email 2 component.
 
-Use the python code to send email
+Use the python code in file **Send_Email_Datatable_Inline-Playbook.py** as sample to send email
