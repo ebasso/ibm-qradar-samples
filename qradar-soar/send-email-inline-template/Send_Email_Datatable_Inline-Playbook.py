@@ -2,10 +2,10 @@ import hashlib
 import time
 from datetime import datetime
 
-# Domínio usado para compor o Message-ID do e-mail
+# Domain used to compose the Message-ID of the email
 MESSAGE_ID_DOMAIN = "qradarsoar.ibm.com"
 
-# Define o assunto do e-mail, com fallback para valor padrão
+# Sets the subject of the email, with fallback to default value
 def get_subject():
     html = "Incident {0} - {1}".format(incident.id, incident.name) 
     subject = playbook.inputs.get('mail_subject')
@@ -15,7 +15,7 @@ def get_subject():
     return html
 
 
-# Função para gerar um Message-ID único baseado em timestamp e hash MD5
+# Function to generate a unique Message-ID based on timestamp and MD5 hash
 def generate_messageid():
     seed_value = str(int(time.time() * 1000))  # Timestamp em milissegundos
     uuid_hash = hashlib.md5(seed_value.encode()).hexdigest()  # Gera hash MD5
@@ -23,7 +23,7 @@ def generate_messageid():
     return msg_id
 
 
-# Função para obter o campo mail_body
+# Function to get the incident description field
 def get_description():
     html = '.'
     desc = incident.description.get('content')
@@ -32,7 +32,7 @@ def get_description():
         html = desc
     return html
 
-# Função para obter o campo mail_body
+# Function to get the mail_body field
 def get_mail_body():
     html = '.'
     mb = playbook.inputs.get('mail_body')
@@ -42,7 +42,7 @@ def get_mail_body():
     return html
 
 
-# Função para gerar uma linha HTML com rótulo e valor de um campo do incidente
+# Function to generate an HTML line with the label and value of an incident field
 def get_row(label, field_name):
     html = ''
     
@@ -60,7 +60,7 @@ def get_row(label, field_name):
     else:
         value = 'NOT FOUND'
     
-    # Se houver valor, monta a linha da tabela
+    # If there is a value, build the table row
     if value and value != '':
         html = "<tr><td class='label'>{} :</td><td class='value'>{}</td></tr>".format(label, value)
     return html
@@ -68,14 +68,14 @@ def get_row(label, field_name):
 
 # ============================= main ====================================
 
-# Define os campos de entrada do e-mail
+# Defines the email input fields
 inputs.mail_to = row.email
 inputs.mail_incident_id = incident.id
 inputs.mail_from = playbook.inputs.mail_from
 inputs.mail_subject = get_subject()
 inputs.mail_message_id = generate_messageid()
 
-# Define o template HTML do corpo do e-mail
+# Defines the HTML template for the email body
 inputs.mail_inline_template = """
 <html>
 <head>
