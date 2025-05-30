@@ -31,6 +31,8 @@ sample_email = /data/templates/sample_email.jinja
 sample_email2 = /data/templates/sample_email2.jinja
 ```
 
+4. Save and push configurations
+5. Restart application
 
 ## Configuring the Playbook
 
