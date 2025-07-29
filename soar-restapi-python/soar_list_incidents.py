@@ -1,3 +1,4 @@
+import os
 from helpers.qradar_soar import QRadarSoar
 from helpers.utils import get_date_string
 from datetime import datetime
