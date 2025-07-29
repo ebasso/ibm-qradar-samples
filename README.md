@@ -2,12 +2,28 @@
 
 This repository provides a collection of sample scripts, configuration files, and integration examples for IBM QRadar. It is intended to help QRadar users, administrators, and developers get started with common use-cases, integrations, and automation tasks.
 
+
 ## Contents
 
-- **microsoft-office365**: Custom dashboards for Microsoft Office 365
-- **microsoft-windows**: Custom dashboards for Microsoft Windows
-- **qradar-soar**: Samples for IBM QRadar SOAR (email templates, ...)
-- **trendmicro**: Custom dashboards for Trend Micro Vision One
+Below is the directory structure of this repository, with a brief description of each folder:
+
+```
+ibm-qradar-samples/
+├── siem-pulse-dashboards/
+│   ├── microsoft-office365/        # Custom dashboards for Microsoft Office 365
+│   ├── microsoft-windows/          # Custom dashboards for Microsoft Windows
+│   └── trendmicro/
+│       └── vision-one/             # Custom dashboards for Trend Micro Vision One
+├── siem-restapi-python/            # Python samples for QRadar SIEM REST API
+├── siem-sample-scripts/            # Example scripts for QRadar SIEM integration
+├── soar-restapi-python/            # Python samples for QRadar SOAR REST API
+├── soar-scritps/                   # Example QRadar SOAR scripts and playbooks
+│   ├── send-email-html-template/   # Email playbook with HTML template
+│   └── send-email-inline-template/ # Email playbook with inline template
+├── LICENSE
+├── README.md
+```
+
 
 ## Getting Started
 
