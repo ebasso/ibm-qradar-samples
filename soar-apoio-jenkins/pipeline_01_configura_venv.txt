@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+
+    environment {
+        VENV_DIR = "/var/lib/jenkins/my-project/venv"
+        PYTHON_BIN = "python3.11"
+        HTTP_PROXY = "http://10.1.1.1"
+        HTTPS_PROXY = "http://10.1.1.1"
+    }
+
+    stages {
+        stage('Create Virtual Environment') {
+            steps {
+                sh '''
+                    echo "🐍 Create virtual environment $PYTHON_BIN em $VENV_DIR..."
+                    
+                    # Remove venv old (opcional)
+                    if [ -d "$VENV_DIR" ]; then
+                        rm -rf "$VENV_DIR"
+                    fi
+
+                    # Create venv with Python 3.11
+                    $PYTHON_BIN -m venv "$VENV_DIR"
+                    echo "✅ Virtual environment criado."
+                '''
+            }
+        }
+
+        stage('Activate venv and install requirements via proxy') {
+            steps {
+                sh '''
+                    echo "📦 Activating venv and install requirements proxy $HTTP_PROXY..."
+
+                    # Export proxy
+                    export HTTP_PROXY="$HTTP_PROXY"
+                    export HTTPS_PROXY="$HTTPS_PROXY"
+
+                    # Activate venv
+                    source "$VENV_DIR/bin/activate"
+
+                    # check pip do Python 3.11
+                    $PYTHON_BIN -m pip install --upgrade pip
+
+                    # Install requirements with pip 3.11
+                    $PYTHON_BIN -m pip install requests psycopg2-binary
+
+                    # Check Install
+                    $PYTHON_BIN -m pip list
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Virtual environment Python is Ready!"
+        }
+        failure {
+            echo "❌ Fail on create venv."
+        }
+    }
+}
