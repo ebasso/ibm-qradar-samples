@@ -10,7 +10,6 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # ========================== PRODUCAO ==========================
 SOAR_CONFIG = {
     "host": os.environ.get("SOAR_HOST", "https://soar.company.com"),
-    # Ajustes em campos
     "api_key": os.environ.get("SOAR_API_KEY", ""),
     "api_secret": os.environ.get("SOAR_API_SECRET", ""),  
     "org_id": int(os.environ.get("SOAR_ORG_ID", 201))
